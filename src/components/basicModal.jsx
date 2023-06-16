@@ -17,14 +17,19 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal() {
+export default function BasicModal({ test }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <div>
-      <Button onClick={handleOpen}>
+      <Button
+        onClick={() => {
+          handleOpen();
+          console.log(test);
+        }}
+      >
         <img className=" h-7 w-7" src={Edit} alt="" />
       </Button>
       <Modal

@@ -3,21 +3,24 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Select from "react-select";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import LongMenu from "./dropwDownMenu";
+import BasicList from "./dropwDownMenu";
+import MenuPopupState from "./dropwDownMenu";
 
 export const Header = () => {
   const productData = useSelector((state) => state.bazar.productData);
   const UserInfo = useSelector((state) => state.bazar.userInfo);
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
+  const categories = [
+    { name: "chocolate", label: "Chocolate" },
+    { name: "strawberry", label: "Strawberry" },
+    { name: "vanilla", label: "Vanilla" },
   ];
   // console.log(productData)
   return (
     <div className="z-50 w-full h-30 bg-white border-b-[1px] z-index-1 sticky top-0 border-b-gray-800 font-titleFont ">
       <div className="max-w-screen-xl h-full mx-auto flex items-center justify-between">
         <div className="flex flex-row items-center gap-4">
-          <Select options={options} />
+          <MenuPopupState categories={categories} />
           <Link to="/">
             <div>
               <img src={LogoLight} alt="LogoLight" className="w-28" />

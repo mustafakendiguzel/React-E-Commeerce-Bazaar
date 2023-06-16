@@ -66,7 +66,7 @@ export const ProductsCard = ({ product }) => {
           >
             Karta Ekle
           </button>
-          <BasicModal />
+          <BasicModal test={product.title} />
         </div>
         <div className="top-2 right-2 absolute">
           {isNew && (
