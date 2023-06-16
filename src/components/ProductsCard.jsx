@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/bazaarSlice";
 import { ToastContainer, toast } from "react-toastify";
+import BasicModal from "./basicModal";
 
 export const ProductsCard = ({ product }) => {
   const dispatch = useDispatch();
@@ -63,8 +64,9 @@ export const ProductsCard = ({ product }) => {
             }
             className="bg-light-gray text-blue-600 hover:text-blue-400"
           >
-            add To Cart
+            Karta Ekle
           </button>
+          <BasicModal />
         </div>
         <div className="top-2 right-2 absolute">
           {isNew && (

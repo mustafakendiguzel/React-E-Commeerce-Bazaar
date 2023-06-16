@@ -92,7 +92,7 @@ export const Product = () => {
               }
               className="bg-black text-white py-3 px-6 active:bg-gray-800"
             >
-              add To Cart
+              Karta Ekle
             </button>
           </div>
           <p className="text-base text-gray-500">
