@@ -13,7 +13,7 @@ import { removeUser } from "../../redux/bazaarSlice";
 import { login } from "../../api/Api";
 import { useState } from "react";
 
-export const Login = () => {
+export const Register = () => {
   const productData = useSelector((state) => state.bazar.productData);
   const UserInfo = useSelector((state) => state.bazar.userInfo);
 
@@ -76,9 +76,39 @@ export const Login = () => {
   return (
     <div className="w-full flex flex-col items-center justify-center gap-10 py-20">
       <div className="text-2xl">
-        <h1>LOGIN</h1>
+        <h1>KAYIT</h1>
       </div>
       <div className="flex flex-col space-y-12">
+        <div className="flex flex-row justify-between">
+          <div className=" mr-6">
+            <h2>İsim: </h2>
+          </div>
+          <div>
+            <input
+              className="border-[1px] border-black cursor-pointer"
+              type="text"
+              id="username"
+              name="username"
+              value={values.username}
+              onChange={handleInputChange}
+            />
+          </div>
+        </div>
+        <div className="flex flex-row justify-between">
+          <div className=" mr-6">
+            <h2>Soyisim: </h2>
+          </div>
+          <div>
+            <input
+              className="border-[1px] border-black cursor-pointer"
+              type="text"
+              id="username"
+              name="username"
+              value={values.username}
+              onChange={handleInputChange}
+            />
+          </div>
+        </div>
         <div className="flex flex-row justify-between">
           <div className=" mr-6">
             <h2>Email: </h2>

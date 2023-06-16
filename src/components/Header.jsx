@@ -37,7 +37,7 @@ export const Header = () => {
           <ul className="flex items-center gap-8 cursor-pointer">
             <Link to={"/"}>
               <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
-                Home
+                Ana Sayfa
               </li>
             </Link>
           </ul>
@@ -55,7 +55,18 @@ export const Header = () => {
                 src={UserInfo ? UserInfo.image : null}
               />
             )}
-            {!UserInfo && <p>Sign In</p>}
+            {!UserInfo && (
+              <div>
+                <p>Giriş yap</p>
+              </div>
+            )}
+          </Link>
+          <Link to={"/register"}>
+            {!UserInfo && (
+              <div className="flex flex-row gap-4">
+                <p>Kayıt Ol</p>
+              </div>
+            )}
           </Link>
           {UserInfo && <p>{UserInfo.name}</p>}
         </div>
