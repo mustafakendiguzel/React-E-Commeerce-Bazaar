@@ -9,7 +9,7 @@ import BasicModal from "./basicModal";
 export const ProductsCard = ({ product }) => {
   const dispatch = useDispatch();
 
-  const { _id, title, oldPrice, price, image, category, isNew, description } =
+  const { id, title, oldPrice, price, images, category, isNew, description } =
     product;
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ export const ProductsCard = ({ product }) => {
     const newIdString = String(Title).toLowerCase().split(" ").join("");
     return newIdString;
   };
-  const rootId = idString(_id);
+  const rootId = idString(id);
 
   const handleDetails = () => {
     navigate(`/product/${rootId}`, {
@@ -33,7 +33,7 @@ export const ProductsCard = ({ product }) => {
         <img
           onClick={handleDetails}
           className=" h-full w-full object-cover group-hover:scale-110 duration-500"
-          src={image}
+          src={images[0]}
           alt=""
         />
       </div>
@@ -42,10 +42,9 @@ export const ProductsCard = ({ product }) => {
           <h2 className="font-arial text-xl font-bold ">{title}</h2>
         </div>
         <div className="flex justify-between items-center">
-          <p>{category}</p>
+          <p>{category.name}</p>
           <div className="flex gap-2 justify-end">
-            <p className="line-through text-gray-500">${price}</p>
-            <p className="font-semibold">${oldPrice}</p>
+            <p className="font-semibold">${price}</p>
           </div>
         </div>
         <div className="flex justify-between mt-2">
@@ -68,11 +67,7 @@ export const ProductsCard = ({ product }) => {
           </button>
           <BasicModal test={product.title} />
         </div>
-        <div className="top-2 right-2 absolute">
-          {isNew && (
-            <p className="bg-black  text-white font-semibold px-6 py-1">Sale</p>
-          )}
-        </div>
+        <div className="top-2 right-2 absolute"></div>
       </div>
       <ToastContainer
         position="top-left"

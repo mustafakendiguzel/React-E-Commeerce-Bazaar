@@ -6,16 +6,20 @@ import { Link } from "react-router-dom";
 import LongMenu from "./dropwDownMenu";
 import BasicList from "./dropwDownMenu";
 import MenuPopupState from "./dropwDownMenu";
+import { getAllCategories } from "../api/Api";
+import { useEffect, useState } from "react";
 
 export const Header = () => {
   const productData = useSelector((state) => state.bazar.productData);
   const UserInfo = useSelector((state) => state.bazar.userInfo);
-  const categories = [
-    { name: "chocolate", label: "Chocolate" },
-    { name: "strawberry", label: "Strawberry" },
-    { name: "vanilla", label: "Vanilla" },
-  ];
-  // console.log(productData)
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    getAllCategories().then((categories) => {
+      setCategories(categories.data);
+    });
+  }, []);
+
   return (
     <div className="z-50 w-full h-30 bg-white border-b-[1px] z-index-1 sticky top-0 border-b-gray-800 font-titleFont ">
       <div className="max-w-screen-xl h-full mx-auto flex items-center justify-between">

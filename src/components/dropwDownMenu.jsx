@@ -22,7 +22,7 @@ export default function MenuPopupState({ categories }) {
                       popupState.close();
                     }}
                   >
-                    {item.name}
+                    {item}
                   </MenuItem>
                 );
               })}
