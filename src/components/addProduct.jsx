@@ -22,7 +22,6 @@ export const AddProduct = () => {
   };
 
   const [values, setValues] = useState(initialValues);
-  console.log(values);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({

@@ -53,3 +53,15 @@ export const createProduct = async (data) => {
   });
   return product;
 };
+
+export const createCategory = async (data) => {
+  const product = await axios.request({
+    method: "POST",
+    url: "https://api.escuelajs.co/api/v1/categories/",
+    data: {
+      name: data.name,
+      image: data.image,
+    },
+  });
+  return product;
+};
