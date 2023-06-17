@@ -1,7 +1,7 @@
 import React from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/bazaarSlice";
 import { ToastContainer, toast } from "react-toastify";
 import BasicModal from "./basicModal";
@@ -12,7 +12,7 @@ export const ProductsCard = ({ product }) => {
   const { id, title, oldPrice, price, images, category, isNew, description } =
     product;
   const navigate = useNavigate();
-
+  const UserInfo = useSelector((state) => state.bazar.userInfo);
   const idString = (Title) => {
     const newIdString = String(Title).toLowerCase().split(" ").join("");
     return newIdString;
@@ -65,7 +65,9 @@ export const ProductsCard = ({ product }) => {
           >
             Karta Ekle
           </button>
-          <BasicModal item={product} />
+          {UserInfo && UserInfo.name === "admin" && (
+            <BasicModal item={product} />
+          )}
         </div>
         <div className="top-2 right-2 absolute"></div>
       </div>

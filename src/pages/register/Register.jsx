@@ -24,6 +24,26 @@ export const Register = () => {
     avatar: "",
   };
 
+  const handleSignUp = async () => {
+    try {
+      const res = await register({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        avatar: values.avatar,
+      });
+      toast.success("Başarıyla kayıt olundu");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
+    } catch (error) {
+      error.response.data.message.map((error) => {
+        toast.warn(error);
+      });
+    }
+  };
+
   const auth = getAuth();
   // console.log(auth)
   const Provider = new GoogleAuthProvider();
@@ -106,25 +126,7 @@ export const Register = () => {
           </div>
         </div>
         <button
-          onClick={async () => {
-            try {
-              const res = await register({
-                name: values.name,
-                email: values.email,
-                password: values.password,
-                avatar: values.avatar,
-              });
-              toast.success("Başarıyla kayıt olundu");
-
-              setTimeout(() => {
-                navigate("/");
-              }, 1500);
-            } catch (error) {
-              error.response.data.message.map((error) => {
-                toast.warn(error);
-              });
-            }
-          }}
+          onClick={handleSignUp}
           className="bg-black text-white text-base py-3 px-10 tracking-wide 
         rounded-md hover:bg-gray-800 duration-300"
         >

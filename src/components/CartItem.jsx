@@ -38,7 +38,7 @@ export const CartItem = () => {
               </div>
               <h2 className="w-52 ">{item.title}</h2>
               <div className="w-52 flex items-center justify-between text-gray-500 gap-4 border p-3">
-                <p className="text-base text-black">Quantity</p>
+                <p className="text-base text-black">Miktar</p>
                 <div className="flex items-center gap-4 text-sm font-semibold">
                   <button
                     onClick={() =>
@@ -85,7 +85,7 @@ export const CartItem = () => {
           onClick={() => dispatch(resetCart())}
           className="text-xl font-bold  bg-red-500 text-white py-1 ml-6 px-6 mt-8"
         >
-          Reset Cart
+          Sepeti Boşalt
         </button>
       </div>
     </div>

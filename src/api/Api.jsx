@@ -9,9 +9,9 @@ export const login = async (data) => {
   console.log(data);
   const login = await axios.request({
     method: "POST",
-    url: "https://fakestoreapi.com/auth/login",
+    url: "https://api.escuelajs.co/api/v1/auth/login",
     data: {
-      username: data.username,
+      email: data.email,
       password: data.password,
     },
   });
@@ -65,4 +65,13 @@ export const createCategory = async (data) => {
     },
   });
   return product;
+};
+
+export const getMe = async (data) => {
+  const me = await axios.request({
+    method: "GET",
+    url: "https://api.escuelajs.co/api/v1/auth/profile",
+    headers: { Authorization: `Bearer ${data.token}` },
+  });
+  return me;
 };

@@ -10,7 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { addUser } from "../../redux/bazaarSlice";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "../../redux/bazaarSlice";
-import { login } from "../../api/Api";
+import { getMe, login } from "../../api/Api";
 import { useState } from "react";
 
 export const Login = () => {
@@ -18,7 +18,7 @@ export const Login = () => {
   const UserInfo = useSelector((state) => state.bazar.userInfo);
 
   const initialValues = {
-    username: "",
+    email: "",
     password: "",
   };
 
@@ -49,6 +49,41 @@ export const Login = () => {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const handleSignIn = async () => {
+    try {
+      const res = await login({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        avatar: values.avatar,
+      });
+      const response = await getMe({
+        token: res.data.access_token,
+      });
+      const me = response.data;
+      dispatch(
+        addUser({
+          name: me.name,
+          email: me.email,
+          password: me.password,
+          avatar: me.avatar,
+        })
+      );
+      toast.success("Başarıyla Giriş yapıldı");
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        error.response.data.message.map((error) => {
+          toast.warn(error);
+        });
+      } else {
+        toast.warn(error.response.data.message);
+      }
+    }
   };
 
   const handleInputChange = (e) => {
@@ -87,9 +122,9 @@ export const Login = () => {
             <input
               className="border-[1px] border-black cursor-pointer"
               type="text"
-              id="username"
-              name="username"
-              value={values.username}
+              id="email"
+              name="email"
+              value={values.email}
               onChange={handleInputChange}
             />
           </div>
@@ -110,12 +145,7 @@ export const Login = () => {
           </div>
         </div>
         <button
-          onClick={async () =>
-            await login({
-              username: values.username,
-              password: values.password,
-            })
-          }
+          onClick={handleSignIn}
           className="bg-black text-white text-base py-3 px-10 tracking-wide 
         rounded-md hover:bg-gray-800 duration-300"
         >
