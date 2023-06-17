@@ -83,9 +83,9 @@ export const Product = () => {
               onClick={() =>
                 dispatch(
                   addToCart({
-                    _id: details._id,
+                    _id: details.id,
                     title: details.title,
-                    image: details.images ? details.images[0] : null,
+                    image: details.images ? details.images[0] : details.images,
                     price: details.price,
                     quantity: baseQty,
                     description: details.description,

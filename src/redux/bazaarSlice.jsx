@@ -13,7 +13,7 @@ export const bazarSlice = createSlice({
       const item = state.productData.find(
         (item) => item._id === action.payload._id
       );
-
+      console.log(action);
       if (item) {
         item.quantity += action.payload.quantity;
       } else {
