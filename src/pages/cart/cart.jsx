@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CartItem } from "../../components/CartItem";
 import { toast } from "react-toastify";
+import { resetCart } from "../../redux/bazaarSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Cart = () => {
   const productData = useSelector((state) => state.bazar.productData);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [totalAmount, setTotalAmount] = useState("");
   const UserInfo = useSelector((state) => state.bazar.userInfo);
   const [payNow, setPayNow] = useState(false);
@@ -17,12 +21,14 @@ export const Cart = () => {
     setTotalAmount(price);
   }, [productData]);
 
-  const handleCheckout = () => {
-    if (UserInfo) {
-      setPayNow(true);
-    } else {
-      toast.error("please Sign In to Checkout");
-    }
+  const handleCheckout = async () => {
+    await toast.success(
+      "Ödeme Başarıyla Yapıldı, birazdan ana sayfaya yönlendirileceksiniz. "
+    );
+    setTimeout(() => {
+      navigate("/");
+      dispatch(resetCart());
+    }, 5000);
   };
 
   return (

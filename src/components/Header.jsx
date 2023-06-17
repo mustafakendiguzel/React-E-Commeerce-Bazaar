@@ -39,9 +39,7 @@ export const Header = () => {
     <div className="z-50 w-full h-30 bg-white border-b-[1px] z-index-1 sticky top-0 border-b-gray-800 font-titleFont ">
       <div className="max-w-screen-xl h-full mx-auto flex items-center justify-between">
         <div className="flex flex-row items-center gap-4">
-          {UserInfo && UserInfo.name !== "admin" && (
-            <MenuPopupState categories={categories} />
-          )}
+          <MenuPopupState categories={categories} />
           <Link to="/">
             <div>
               <img src={LogoLight} alt="LogoLight" className="w-28" />
@@ -103,7 +101,7 @@ export const Header = () => {
           </Link>
           {UserInfo && <p>{UserInfo.name}</p>}
           <Link onClick={handleLogout} to={"/"}>
-            {UserInfo && <p>Logout</p>}
+            {UserInfo && <p>Çıkış Yap</p>}
           </Link>
         </div>
       </div>
