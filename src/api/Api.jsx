@@ -1,9 +1,7 @@
 import axios from "axios";
 
 export const productsData = async () => {
-  const products = await axios.get(
-    "https://api.escuelajs.co/api/v1/products/?title=Generic"
-  );
+  const products = await axios.get("https://api.escuelajs.co/api/v1/products/");
   return products;
 };
 
@@ -36,7 +34,22 @@ export const register = async (data) => {
 export const getAllCategories = async (data) => {
   const categories = await axios.request({
     method: "GET",
-    url: "https://fakestoreapi.com/products/categories",
+    url: "https://api.escuelajs.co/api/v1/categories",
   });
   return categories;
+};
+
+export const createProduct = async (data) => {
+  const product = await axios.request({
+    method: "POST",
+    url: "https://api.escuelajs.co/api/v1/products/",
+    data: {
+      title: data.title,
+      price: Number(data.price),
+      description: data.description,
+      categoryId: Number(data.categoryId),
+      images: [data.image],
+    },
+  });
+  return product;
 };

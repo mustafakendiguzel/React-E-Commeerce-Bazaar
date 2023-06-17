@@ -1,15 +1,17 @@
 import { LogoLight } from "../assets/index";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Select from "react-select";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import LongMenu from "./dropwDownMenu";
 import BasicList from "./dropwDownMenu";
 import MenuPopupState from "./dropwDownMenu";
 import { getAllCategories } from "../api/Api";
 import { useEffect, useState } from "react";
+import { addCategories } from "../redux/bazaarSlice";
 
 export const Header = () => {
+  const dispatch = useDispatch();
   const productData = useSelector((state) => state.bazar.productData);
   const UserInfo = useSelector((state) => state.bazar.userInfo);
   const [categories, setCategories] = useState([]);

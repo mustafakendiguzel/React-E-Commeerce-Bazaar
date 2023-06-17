@@ -1,66 +1,75 @@
-import {createSlice} from "@reduxjs/toolkit";
-
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   productData: [],
-  userInfo: null
-}
-
+  userInfo: null,
+};
 
 export const bazarSlice = createSlice({
   name: "bazar",
   initialState,
-  reducers:{
-    addToCart: (state, action)=>{
-      const item = state.productData.find((item)=> item._id === action.payload._id)
+  reducers: {
+    addToCart: (state, action) => {
+      const item = state.productData.find(
+        (item) => item._id === action.payload._id
+      );
 
-      if(item){
-        item.quantity += action.payload.quantity
-      }else{
-        state.productData.push(action.payload)
+      if (item) {
+        item.quantity += action.payload.quantity;
+      } else {
+        state.productData.push(action.payload);
       }
     },
 
-    deleteFromCart: (state, action)=>{
-      state.productData = state.productData.filter((item)=> item._id !== action.payload)
+    deleteFromCart: (state, action) => {
+      state.productData = state.productData.filter(
+        (item) => item._id !== action.payload
+      );
     },
 
-    resetCart: (state)=>{
-      state.productData = []
+    resetCart: (state) => {
+      state.productData = [];
     },
-    
-    incrementQuantity: (state, action)=>{
-      const item = state.productData.find((item)=> item._id === action.payload._id)
-      if(item){
-        item.quantity ++;
+
+    incrementQuantity: (state, action) => {
+      const item = state.productData.find(
+        (item) => item._id === action.payload._id
+      );
+      if (item) {
+        item.quantity++;
       }
-    }, 
-    decrementQantity: (state, action)=>{
-      const item = state.productData.find((item)=> item._id === action.payload._id)
-      if(item.quantity === 1){
-        item.quantity =1
-      }else{
+    },
+    decrementQantity: (state, action) => {
+      const item = state.productData.find(
+        (item) => item._id === action.payload._id
+      );
+      if (item.quantity === 1) {
+        item.quantity = 1;
+      } else {
         item.quantity--;
       }
     },
 
-    addUser: (state, action)=>{
-      state.userInfo = action.payload
+    addUser: (state, action) => {
+      state.userInfo = action.payload;
     },
-    removeUser: (state)=>{
-      state.userInfo = null
-    }
+    removeUser: (state) => {
+      state.userInfo = null;
+    },
 
-  }
-}
-)
+    addCategories: (state, action) => {
+      state.categories = action.payload;
+    },
+  },
+});
 
-export const
- {addToCart, 
-  deleteFromCart, 
+export const {
+  addToCart,
+  deleteFromCart,
   resetCart,
-  incrementQuantity, 
+  incrementQuantity,
   addUser,
   removeUser,
-  decrementQantity} = bazarSlice.actions;
-
+  decrementQantity,
+  addCategories,
+} = bazarSlice.actions;

@@ -9,9 +9,7 @@ import {
 
 export const AddCategories = () => {
   const dispatch = useDispatch();
-
   const productData = useSelector((state) => state.bazar.productData);
-  console.log(productData);
 
   return (
     <div className="w-full flex flex-col items-center justify-center gap-10 py-20">
