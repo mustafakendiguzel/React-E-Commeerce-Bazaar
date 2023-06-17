@@ -60,6 +60,10 @@ export const bazarSlice = createSlice({
     addCategories: (state, action) => {
       state.categories = action.payload;
     },
+
+    selectCategory: (state, action) => {
+      state.selectedCategory = action.payload;
+    },
   },
 });
 
@@ -72,4 +76,5 @@ export const {
   removeUser,
   decrementQantity,
   addCategories,
+  selectCategory,
 } = bazarSlice.actions;
