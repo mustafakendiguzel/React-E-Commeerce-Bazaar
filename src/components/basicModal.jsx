@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Edit } from "../assets";
+import { toast } from "react-toastify";
 
 const style = {
   position: "absolute",
@@ -17,17 +18,28 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({ test }) {
+export default function BasicModal({ item }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const initialValues = {
+    stock: 0,
+  };
+  const [values, setValues] = React.useState(initialValues);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
 
   return (
     <div>
       <Button
         onClick={() => {
           handleOpen();
-          console.log(test);
         }}
       >
         <img className=" h-7 w-7" src={Edit} alt="" />
@@ -39,12 +51,38 @@ export default function BasicModal({ test }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <div className="flex flex-row justify-between">
+            <div className=" mr-6">
+              <h2>Stok: </h2>
+            </div>
+            <div>
+              {item && item.stock && <h1>{item.stock}</h1>}
+              {item && values.stock !== "0" && (
+                <input
+                  className="border-[1px] border-black cursor-pointer"
+                  type="number"
+                  id="stock"
+                  name="stock"
+                  value={values.stock}
+                  onChange={handleInputChange}
+                />
+              )}
+            </div>
+          </div>
+          {item && values.stock !== "0" && (
+            <div className="flex justify-center pt-10">
+              <button
+                onClick={() => {
+                  toast.success("Stok başarıyla güncellendi");
+                  handleClose();
+                }}
+                className="bg-black text-white text-base py-3 px-10 tracking-wide 
+        rounded-md hover:bg-gray-800 duration-300"
+              >
+                Güncelle
+              </button>
+            </div>
+          )}
         </Box>
       </Modal>
     </div>

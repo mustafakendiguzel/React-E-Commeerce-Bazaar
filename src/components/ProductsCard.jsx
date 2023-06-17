@@ -65,7 +65,7 @@ export const ProductsCard = ({ product }) => {
           >
             Karta Ekle
           </button>
-          <BasicModal test={product.title} />
+          <BasicModal item={product} />
         </div>
         <div className="top-2 right-2 absolute"></div>
       </div>
