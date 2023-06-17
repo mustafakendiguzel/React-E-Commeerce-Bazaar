@@ -19,16 +19,17 @@ export const login = async (data) => {
 };
 
 export const register = async (data) => {
-  console.log(data);
-  const login = await axios.request({
+  const register = await axios.request({
     method: "POST",
-    url: "https://fakestoreapi.com/auth/login",
+    url: " https://api.escuelajs.co/api/v1/users/",
     data: {
-      username: data.username,
+      name: data.name,
+      email: data.email,
       password: data.password,
+      avatar: data.avatar,
     },
   });
-  return login;
+  return register;
 };
 
 export const getAllCategories = async (data) => {

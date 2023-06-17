@@ -10,7 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { addUser } from "../../redux/bazaarSlice";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "../../redux/bazaarSlice";
-import { login } from "../../api/Api";
+import { login, register } from "../../api/Api";
 import { useState } from "react";
 
 export const Register = () => {
@@ -18,8 +18,10 @@ export const Register = () => {
   const UserInfo = useSelector((state) => state.bazar.userInfo);
 
   const initialValues = {
-    username: "",
+    name: "",
+    email: "",
     password: "",
+    avatar: "",
   };
 
   const auth = getAuth();
@@ -29,48 +31,12 @@ export const Register = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState(initialValues);
 
-  const handleGoogleLogin = (e) => {
-    e.preventDefault();
-    signInWithPopup(auth, Provider)
-      .then((result) => {
-        const user = result.user;
-        dispatch(
-          addUser({
-            id: user.uid,
-            name: user.displayName,
-            email: user.email,
-            image: user.photoURL,
-          })
-        );
-        setTimeout(() => {
-          navigate("/");
-        }, 1500);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({
       ...values,
       [name]: value,
     });
-  };
-
-  console.log(values);
-
-  const handleGoogleSignOut = (e) => {
-    e.preventDefault();
-    signOut(auth)
-      .then(() => {
-        toast.success("Log Out Successfully");
-        dispatch(removeUser());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   return (
@@ -87,24 +53,9 @@ export const Register = () => {
             <input
               className="border-[1px] border-black cursor-pointer"
               type="text"
-              id="username"
-              name="username"
-              value={values.username}
-              onChange={handleInputChange}
-            />
-          </div>
-        </div>
-        <div className="flex flex-row justify-between">
-          <div className=" mr-6">
-            <h2>Soyisim: </h2>
-          </div>
-          <div>
-            <input
-              className="border-[1px] border-black cursor-pointer"
-              type="text"
-              id="username"
-              name="username"
-              value={values.username}
+              id="name"
+              name="name"
+              value={values.name}
               onChange={handleInputChange}
             />
           </div>
@@ -117,9 +68,9 @@ export const Register = () => {
             <input
               className="border-[1px] border-black cursor-pointer"
               type="text"
-              id="username"
-              name="username"
-              value={values.username}
+              id="email"
+              name="email"
+              value={values.email}
               onChange={handleInputChange}
             />
           </div>
@@ -139,17 +90,45 @@ export const Register = () => {
             />
           </div>
         </div>
+        <div className="flex flex-row justify-between">
+          <div className=" mr-6">
+            <h2>Avatar Url: </h2>
+          </div>
+          <div>
+            <input
+              className="border-[1px] border-black cursor-pointer"
+              type="text"
+              id="avatar"
+              name="avatar"
+              value={values.avatar}
+              onChange={handleInputChange}
+            />
+          </div>
+        </div>
         <button
-          onClick={async () =>
-            await login({
-              username: values.username,
-              password: values.password,
-            })
-          }
+          onClick={async () => {
+            try {
+              const res = await register({
+                name: values.name,
+                email: values.email,
+                password: values.password,
+                avatar: values.avatar,
+              });
+              toast.success("Başarıyla kayıt olundu");
+
+              setTimeout(() => {
+                navigate("/");
+              }, 1500);
+            } catch (error) {
+              error.response.data.message.map((error) => {
+                toast.warn(error);
+              });
+            }
+          }}
           className="bg-black text-white text-base py-3 px-10 tracking-wide 
         rounded-md hover:bg-gray-800 duration-300"
         >
-          Giriş yap
+          Kayıt Ol
         </button>
       </div>
       {/* <div className='w-fit flex items-center justify-center gap-10'>
